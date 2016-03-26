@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>图片预加载 | Leevi&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="//缺点就是使用某张图片需要知道他的下标,
+var oldImg = [&quot;xxx&quot;,&quot;xxx&quot;,&quot;xxx&quot;,&quot;xxx&quot;];
+var imgs = [];
+var num = 0;
+for(var i=0;i">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图片预加载">
+<meta property="og:url" content="http://yoursite.com/2016/03/26/图片预加载/index.html">
+<meta property="og:site_name" content="Leevi's blog">
+<meta property="og:description" content="//缺点就是使用某张图片需要知道他的下标,
+var oldImg = [&quot;xxx&quot;,&quot;xxx&quot;,&quot;xxx&quot;,&quot;xxx&quot;];
+var imgs = [];
+var num = 0;
+for(var i=0;i">
+<meta property="og:updated_time" content="2016-03-26T03:21:01.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="图片预加载">
+<meta name="twitter:description" content="//缺点就是使用某张图片需要知道他的下标,
+var oldImg = [&quot;xxx&quot;,&quot;xxx&quot;,&quot;xxx&quot;,&quot;xxx&quot;];
+var imgs = [];
+var num = 0;
+for(var i=0;i">
+  
+    <link rel="alternate" href="/atom.xml" title="Leevi&#39;s blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Leevi&#39;s blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-图片预加载" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/03/26/图片预加载/" class="article-date">
+  <time datetime="2016-03-26T03:14:08.000Z" itemprop="datePublished">2016-03-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      图片预加载
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>//缺点就是使用某张图片需要知道他的下标,</p>
+<pre><code>var oldImg = ["xxx","xxx","xxx","xxx"];
+var imgs = [];
+var num = 0;
+for(var i=0;i<oldimg.length;i++){ imgs[i]="new" image();="" imgs[i].src="oldImg[i];" imgs[i].onload="function(){" num++;="" if(num="=oldImg.length){" 全部加载完了="" xxxxxx="" }="" <="" code=""></oldimg.length;i++){></code></pre>
+或者：
+
+<pre><code>var oldImg = ["xxx","xxx","xxx","xxx"];
+var imgs = [];
+for(var i=0;i<oldimg.length;i++){ imgs[i]="new" image();="" imgs[i].src="oldImg[i];" }="" window.onload="function(){" xxxxxx="" }<="" code=""></oldimg.length;i++){></code></pre>
+
+<p>//推荐使用下面这个方法,图片的名字是自己定义,使用起来比较方便<br>function loading(loadingImgs,succFn){<br>//定义一个空的对象<br>var imgs = {};</p>
+<p>var count = 0;<br>var allNum = 0;<br>//每循环一次allNum++,获得总的图片数<br>for (var i in loadingImgs){<br>allNum++;<br>}<br>//将每一张图片进行load<br>for (var i in loadingImgs){<br>//将数组里的每个都变成图片对象<br>imgs[i] = new Image();<br>imgs[i].src = loadingImgs[i];<br>imgs[i].onload = function (){</p>
+<p>count++;<br>if (count&gt;=allNum){<br>//加载完之后运行函数,接受imgs数组<br>succFn(imgs);<br>}<br>}<br>}<br>}<br>var loadingImgs = {<br>//这里输入要加载的图片链接及名字<br>background:”img/background.png”,<br>bomb:”img/bomb.png”,<br>bullet:”img/bullet1.png”<br>}</p>
+<p>loading(loadingImgs,function (imgs){<br>//回调函数会返回预加载好的imgs数组<br>//加载完之后就可以直接使用了,imgs.background就是图片对象,可以获取它的宽高等属性<br>console.log(imgs.background.width);</p>
+<p>});</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/03/26/图片预加载/" data-id="cim8klbna0001kpt996io5nbd" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/03/10/学习总结/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">HTML和CSS学习总结</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/03/26/图片预加载/">图片预加载</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/10/学习总结/">HTML和CSS学习总结</a>
+          </li>
+        
+          <li>
+            <a href="/2016/03/10/heo-world/">Hello myword</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

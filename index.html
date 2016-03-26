@@ -64,6 +64,58 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-图片预加载" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/03/26/图片预加载/" class="article-date">
+  <time datetime="2016-03-26T03:14:08.000Z" itemprop="datePublished">2016-03-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/26/图片预加载/">图片预加载</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>//缺点就是使用某张图片需要知道他的下标,</p>
+<pre><code>var oldImg = ["xxx","xxx","xxx","xxx"];
+var imgs = [];
+var num = 0;
+for(var i=0;i<oldimg.length;i++){ imgs[i]="new" image();="" imgs[i].src="oldImg[i];" imgs[i].onload="function(){" num++;="" if(num="=oldImg.length){" 全部加载完了="" xxxxxx="" }="" <="" code=""></oldimg.length;i++){></code></pre>
+或者：
+
+<pre><code>var oldImg = ["xxx","xxx","xxx","xxx"];
+var imgs = [];
+for(var i=0;i<oldimg.length;i++){ imgs[i]="new" image();="" imgs[i].src="oldImg[i];" }="" window.onload="function(){" xxxxxx="" }<="" code=""></oldimg.length;i++){></code></pre>
+
+<p>//推荐使用下面这个方法,图片的名字是自己定义,使用起来比较方便<br>function loading(loadingImgs,succFn){<br>//定义一个空的对象<br>var imgs = {};</p>
+<p>var count = 0;<br>var allNum = 0;<br>//每循环一次allNum++,获得总的图片数<br>for (var i in loadingImgs){<br>allNum++;<br>}<br>//将每一张图片进行load<br>for (var i in loadingImgs){<br>//将数组里的每个都变成图片对象<br>imgs[i] = new Image();<br>imgs[i].src = loadingImgs[i];<br>imgs[i].onload = function (){</p>
+<p>count++;<br>if (count&gt;=allNum){<br>//加载完之后运行函数,接受imgs数组<br>succFn(imgs);<br>}<br>}<br>}<br>}<br>var loadingImgs = {<br>//这里输入要加载的图片链接及名字<br>background:”img/background.png”,<br>bomb:”img/bomb.png”,<br>bullet:”img/bullet1.png”<br>}</p>
+<p>loading(loadingImgs,function (imgs){<br>//回调函数会返回预加载好的imgs数组<br>//加载完之后就可以直接使用了,imgs.background就是图片对象,可以获取它的宽高等属性<br>console.log(imgs.background.width);</p>
+<p>});</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/03/26/图片预加载/" data-id="cim8klbna0001kpt996io5nbd" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-学习总结" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/03/10/学习总结/" class="article-date">
@@ -134,7 +186,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/03/10/学习总结/" data-id="cillpywvz000039t9xmpnitz1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/03/10/学习总结/" data-id="cim8klbne0002kpt9jchoml9f" class="article-share-link">Share</a>
       
       
     </footer>
@@ -179,7 +231,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/03/10/heo-world/" data-id="cillqdnyb00004pt9i96urixc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/03/10/heo-world/" data-id="cim8klbn40000kpt9ecn1it2b" class="article-share-link">Share</a>
       
       
     </footer>
@@ -217,6 +269,10 @@
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2016/03/26/图片预加载/">图片预加载</a>
+          </li>
         
           <li>
             <a href="/2016/03/10/学习总结/">HTML和CSS学习总结</a>
